@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        {% load static %}
+		<meta charset="utf-8" />
+		<title>浩茗金融</title>
+        {% load account_management_extra %}
+		<link rel="stylesheet" href="/static/front/css/myAccount.css" />
+        <script src="{% static 'front/js/jquery1.10.2.js' %}"></script>
+		<script type="{% static 'front/js/myAccount.js' %}"></script>
+	</head>
+    <style>
+        .right_zx li{
+            display: inline-block;
+        }
+        .right_zx div{
+            display: inline-block;
+        }
+        .right_zx a:hover{
+            background: orange;
+        }
+
+    </style>
+	<body>
+		
+		
+		
+		
+		<div class="top">
+			<div class="top1">
+				{% include 'front/public_top_1.html' %}
+			</div>
+			{% include 'front/public_head.html' %}
+			
+			
+		</div>
+		
+		
+		<!--中部--><!--中部--><!--中部--><!--中部--><!--中部--><!--中部--><!--中部-->
+		
+
+		
+		<div class="middle">
+			<div class="middle_content" id="content_right">
+				
+				<div class="content_left">
+					
+					
+					<div class="content_photo">
+						<div class="photo">
+							<img src="/static/front/img/未标题-1.png"/>
+						</div>
+						<input type="file" />
+					</div>
+					
+					<div class="tel">
+						<p class="p1">{{ tel }}</p>
+						<p class="p2">{{ tel | get_ext }}</p>
+					</div>
+					
+					<div class="img_list" id="img_list">
+						<div class="img1"></div>
+						<div class="img2"></div>
+						<div class="img3"></div>
+					</div>
+					
+					
+					<ul class="list_mi" id="list_mi">
+						<li><a href="/account_management/money_record/">我的账户</a></li>
+						<li><a href="/account_management/investment_management/">投资管理</a></li>
+						<li><a href="/account_management/repayment_account/">我要还款</a></li>
+						<li><a href="###">资金记录</a></li>
+					
+						<li class="pas"><a href="###">密码设置</a></li>
+						<li class="ss"><a href="###">消息中心</a></li>
+					</ul>
+					
+					
+					
+					
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+			<!--右侧-->	<!--右侧-->	<!--右侧-->	<!--右侧-->	<!--右侧-->	
+				
+				<div class="content_right" >
+					
+					<div class="right_top">
+						<div class="right_top_1">
+							
+						</div>
+						<p>可用余额:¥{{ user.banlence }}</p>
+						
+						<p>累计收益:¥888865.00</p>
+						
+						<div class="cc">
+							<div class="cz">
+								充值
+							</div>
+							<p>昨日收益 <span>3.00</span></p>
+						</div>
+					</div>
+					<!--
+					<div class="right_2">
+						<div class="right_2_1"></div>
+						<p>代收本息<span>110000</span>.00元</p>
+						<a href="###">查看投资中项目</a>
+		
+						
+					</div>
+					<div class="right_3">
+						<div class="right_3_1"></div>
+						<div class="right_3_2">
+							2008980.00
+						</div>
+						<p class="right_3_3">总资产</p>
+						<div class="right_3_4">
+							
+							代收本息<span>2016666</span>.67元
+						
+							<p class="right_3_4_1">
+								冻结资金
+								<span>0</span>
+								.00元
+							</p>
+						
+						</div>
+						
+					</div>
+					<div class="right_4">
+						
+					</div>
+					-->
+					<div class="right_5">
+						<div class="right_5_1">
+							资金记录
+						</div>
+						
+						<div class="right_5_2">
+							<ul>
+								<li>交易记录</li>
+								<li>交易类型</li>
+								<li>交易详情</li>
+								<li>金额</li>
+								<li>余额</li>
+							</ul>
+						</div>
+						<div class="right_5_3">
+                            {% for datum in data %}
+							<ul>
+								<li>{{ datum.change_time | date:"Y-m-d H:i:s" }}</li>
+								<li>{{ datum.from_src }}</li>
+								<li>18817885259</li>
+								<li>{{ datum.money }}</li>
+								<li>{{ datum.banlence }}</li>
+							</ul>
+                            {% endfor %}
+						</div>
+{#					<div class="right_zx">#}
+{#						<div class="zxx">#}
+{#							#}
+{#						#}
+{#							<span id="s1"><</span>#}
+{#								<div>1</div>#}
+{#							<span id="s2">></span>#}
+{#							#}
+{#						</div>#}
+{#					</div>#}
+                    <div class="right_zx">
+						<div class="zxx" style="width: 150px">
+							{% if data.has_previous %}
+				            <a href="?page={{ data.previous_page_number }}"><li><</li></a>
+                            {% else %}
+                            <a href=""><li><</li></a>
+                            {% endif %}
+
+                                <a href="?page=1"><li class="active">1</li></a>
+                                <a href="?page=2"><li>2</li></a>
+                                <a href="?page=3"><li>3</li></a>
+                                <a href="?page=4"><li>4</li></a>
+                                <a href="?page=5"><li>5</li></a>
+                                <a href="?page=6"><li>6</li></a>
+                                <a href="?page=7"><li>7</li></a>
+                                <a href="?page=8"><li>8</li></a>
+                            {% if data.has_next %}
+                            <a href="?page={{ data.next_page_number}}"><li>></li></a>
+                            {% else %}
+                            <a href=""><li>></li></a>
+				            {% endif %}
+						</div>
+					</div>
+						
+						
+					</div>
+				</div>
+				<div class="div_box">
+					2
+				</div>
+				<div class="div_box">
+					3
+				</div>
+				<div class="div_box">
+					4
+				</div>
+				<div class="div_box">
+					5
+				</div>
+
+
+				
+				
+				
+				
+				
+			</div>
+		</div>
+		
+
+
+		
+		
+		
+		
+		
+		<!--底部--><!--底部--><!--底部--><!--底部--><!--底部--><!--底部-->
+		
+		
+		{% include 'front/public_tail.html' %}
+			
+			
+			
+		 <script>
+        $(function () {
+            //用户充值
+            var turn=true;
+            $(".cz").click(function () {
+                $('[name=cg]').remove();
+                var tag = $(this);
+
+                $.ajax({
+                    success:function () {
+                        if (turn){
+                        var cz = "<b>充值金额：<b><input type='number' name='cz'> <input type='button' name='czqr'value='确认充值'>";
+                        tag.parents(".right_top").append(cz);
+                        turn=false;
+                        $("[name=czqr]").click(function () {
+                            var czje = $("[name=cz]").val();
+                            console.log(czje);
+                            turn=true;
+                            $(".cc").nextAll().remove();
+                            cg = "<b name='cg'>成功充值：<b>"+czje+"元";
+                            tag.parents(".right_top").append(cg);
+                            $.ajax({
+                                url:'/account_management/account_recharge/',
+                                data:{"czje":czje,csrfmiddlewaretoken: '{{ csrf_token }}'  },
+                                method:'POST',
+                                dataType:'json',
+                                success:function (insert) {
+                                    var into = "<div class=\"right_5_3\"><ul>" +
+                                        "<li>"+insert["change_time"]+"</li>" +
+                                        "<li>"+insert["from_src"]+"</li>" +
+                                        "<li>18817885259</li>" +
+                                        "<li>"+insert["cz"]+"</li>" +
+                                        "<li>"+insert["u_money"]+"</li>" +
+                                        "</ul></div>";
+                                    $(".right_5_3").before(into)
+                                }
+
+                            })
+                        })
+                    }
+                    }
+                });
+
+
+            })
+        })
+    </script>
+			
+			
+		</div>
+	</body>
+
+</html>

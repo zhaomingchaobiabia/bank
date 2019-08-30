@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>浩茗金融</title>
+		{% load static %}
+		<link rel="stylesheet" href="/static/front/css/tzgl.css" />
+{#		<script type="text/javascript" src="/static/front/js/jquery1.10.2.js"></script>#}
+{#		<script type="text/javascript" src="/static/front/js/tzgl.js"></script>#}
+{#		<link rel="stylesheet" href="/static/front/css/myAccount.css" />#}
+{#		<script type="text/javascript" src="/static/front/js/myAccount.js"></script>#}
+
+
+        <link rel="stylesheet" href="/static/front/css/myAccount.css" />
+        <script src="{% static 'front/js/jquery1.10.2.js' %}"></script>
+		<script type="{% static 'front/js/myAccount.js' %}"></script>
+
+	</head>
+	<body>
+		
+		
+		
+		
+		<div class="top">
+			<div class="top1">
+				{% include 'front/public_top_1.html' %}
+			</div>
+			{% include 'front/public_head.html' %}
+			
+			
+		</div>
+		
+		
+		<!--中部--><!--中部--><!--中部--><!--中部--><!--中部--><!--中部--><!--中部-->
+		
+
+		
+		<div class="middle">
+			<div class="middle_content" id="content_right">
+				
+				<div class="content_left">
+					
+					
+					<div class="content_photo">
+						<div class="photo">
+							<img src="/static/front/img/未标题-1.png"/>
+						</div>
+						<input type="file" />
+					</div>
+					
+					<div class="tel">
+						<p class="p1">{{ tel }}</p>
+						<p class="p2">188***5258</p>
+					</div>
+					
+					<div class="img_list" id="img_list">
+						<div class="img1"></div>
+						<div class="img2"></div>
+						<div class="img3"></div>
+					</div>
+					
+					
+					<ul class="list_mi" id="list_mi">
+						<li><a href="/account_management/money_record/">我的账户</a></li>
+						<li><a href="/front/tzgl">投资管理</a></li>
+						<li><a href="/account_management/repayment_account/">我要还款</a></li>
+						<li><a href="###">资金记录</a></li>
+					
+						<li class="pas"><a href="###">密码设置</a></li>
+						<li class="ss"><a href="###">消息中心</a></li>
+					</ul>
+					
+					
+					
+					
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+			<!--右侧-->	<!--右侧-->	<!--右侧-->	<!--右侧-->	<!--右侧-->	
+				
+			 <div class="ddd">
+				 <div class="content_right" >
+						<div class="news">
+						
+							<dl class="content_right_dl">
+								<dt>累计投资(元)</dt>
+								<dd>{{ invest_money }}</dd>
+							</dl>
+							<!--
+							<dl class="content_right_dl">
+								<dt>投资中冻结金额(元)</dt>
+								<dd>0.00</dd>	
+							</dl>-->
+							<dl class="content_right_dl2">
+								<dt>投标中(笔)</dt>
+								<dd>{{ number }}</dd>
+							</dl>
+							<dl class="content_right_dl2">
+								<dt>还款中(笔)</dt>
+								<dd>{{ back_money_number }}</dd>
+							</dl>
+							<!--
+							<dl class="content_right_dl2">
+								<dt>转让中(笔)</dt>
+								<dd>0</dd>	
+							</dl>
+							-->
+					
+						</div>
+                          <div class="huankuan">
+							 <p>
+                                 <span>你本月要还款<span id="bbb">{{ borrow_money }}</span>元</span>&nbsp;&nbsp;
+                                 <input id="aaa" type="text" a={{ id }} value="" placeholder="{{ data }}">
+                                 <span class="fk" onclick="repayment({{ id }}, '{{ borrow_money }}')">还款</span>
+                             </p>
+						 </div>
+		
+								
+					</div>
+
+			</div>
+
+		     <div style="width:100%;clear:both"></div>
+				
+			</div>
+		</div>
+		
+
+		
+		
+		<!--底部--><!--底部--><!--底部--><!--底部--><!--底部--><!--底部-->
+		
+		
+		{% include 'front/public_tail.html' %}
+	</body>
+
+    <script>
+            flo=true;
+           function repayment(id  ,cc){
+               {#1对输入的值进行效验#}
+
+
+				// 1,通过选择器,来获取对应的input元素
+               var borrow_money=$("#aaa").val();
+
+				// 校验 用户名是否是字母/数字.下户线组成的
+				regex = /^\d+$/;
+				{#ff=document.getElementById("tel_msg");#}
+
+				if (regex.test(borrow_money) )
+
+				{
+                     if (flo)
+                         {
+                               flo=false;
+                                $.ajax
+                                ({
+                                    url: "/account_management/personal_reimbursement",
+                                    data: {'money': borrow_money, "id": id, "blance": cc},
+                                    method: "GET",
+                                    dataType: "json",
+                                    success: function (data, status, xhr)
+                                    {
+                                        console.log(data.msg);
+                                        $("#aaa").val(data.msg);
+                                        $("#bbb").text(data.money);
+                                    }
+                                })
+
+                         }
+
+                    else
+                        {
+                           cc = $("#bbb").text();
+
+                           $.ajax
+                           ({
+                               url: "/account_management/personal_reimbursement",
+                               data: {'money': borrow_money, "id": id, "blance": cc},
+                               method: "GET",
+                               dataType: "json",
+                               success: function (data, status, xhr)
+                               {
+                                   console.log(data.msg);
+                                   $("#aaa").val(data.msg);
+                                   $("#bbb").text(data.money);
+
+                               }
+                           })
+                        }
+                    {#$("#aaa").val("输入数字合法");#}
+
+				}
+				else
+				{
+				    {#$("#aaa").css("placeholder","输入数字不合法");#}
+					$("#aaa").val("输入数字不合法");
+				}
+
+
+
+
+
+
+           }
+    </script>
+
+</html>

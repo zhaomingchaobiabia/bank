@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>浩茗金融</title>
+		<link rel="stylesheet" href="/static/front/css/reg.css" />
+		<script type="text/javascript" src="/static/front/js/jquery1.10.2.js"></script>
+		<script type="text/javascript" src="/static/front/js/reg.js"></script>
+	</head>
+	<body>
+		
+		
+		
+		
+		<div class="top">
+			<div class="top1">
+				<div class="top_1">
+                      <ul class="app">
+							<li>APP下载</li>
+							<li>帮助中心</li>
+						</ul>
+						<ul class="zhzx">
+							<li>欢迎您</li>
+							<li class="li1">账户中心</li>
+							<li class="back"><a href="/front/exit">退出</a></li>
+							<li>积分商城</li>
+						</ul>
+				</div>
+			</div>
+			{% include 'front/public_head.html' %}
+			
+			
+		</div>
+		
+		
+		<!--中部--><!--中部--><!--中部--><!--中部--><!--中部--><!--中部--><!--中部-->
+		
+        <div class="reg_mian">
+        	  <div class="reg_top"></div>
+        	  <form action="/front/reg_login" method="post" class="reg_login">
+                  {% csrf_token %}
+        	  	  <p>
+        	  	  	 <label for="">手机号码</label>
+        	  	  	 <input type="text" name="tel"  placeholder="手机号码">
+        	  	  	 <span ></span>
+
+        	  	  </p>
+                  <p>
+        	  	  	 <label for="">密码</label>
+        	  	  	 <input type="text" name="password"  placeholder="6-16位数字和字符">
+        	  	  	 <span ></span>
+        	  	  </p>
+        	  	  <p>
+        	  	  	 <label for="">确认密码</label>
+        	  	  	 <input type="text" name="pass"  placeholder="6-16位数字和字符">
+        	  	  	 <span ></span>
+        	  	  </p>
+                  <p class="yzm">
+        	  	  	 <label for="">验证码</label>
+        	  	  	 <input type="text" name="security" >
+        	  	  	 <span><img src="/static/front/img/valid.jpg" /></span>
+        	  	  </p>
+        	  	  <p>
+        	  	  	 <label for="">邀请人</label>
+        	  	  	 <input type="text" name="invite"  placeholder="邀请码（非必填）">
+        	  	  </p>
+        	  	  <p class="agree">
+        	  	  	 <input type="checkbox">我已阅读，并同意注册协议
+        	  	  </p>
+        	  	  <p>
+        	  	  	 <a >下一步</a>
+        	  	  	 <span class="login">已有账户，登陆</span>
+        	  	  </p>
+        	  </form>
+        </div>
+		
+		
+		<script>
+            $(function () {
+
+
+            })
+        </script>
+		
+		<!--底部--><!--底部--><!--底部--><!--底部--><!--底部--><!--底部-->
+		
+		
+		{% include 'front/public_tail.html' %}
+
+
+	</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>浩茗金融</title>
+		<link rel="stylesheet" href="/static/front/css/reg_ok.css" />
+		<script type="text/javascript" src="/static/front/js/jquery1.10.2.js"></script>
+		<script type="text/javascript" src="/static/front/js/reg_ok.js"></script>
+	</head>
+	<body>
+		
+		
+		
+		
+		<div class="top">
+			<div class="top1">
+				<div class="top_1">
+                      <ul class="app">
+							<li>APP下载</li>
+							<li>帮助中心</li>
+						</ul>
+						<ul class="zhzx">
+							<li>欢迎您</li>
+							<li class="li1">{{ tel }} 账户中心</li>
+							<li class="back"><a href="/front/exit">退出</a></li>
+							<li>积分商城</li>
+						</ul>
+				</div>
+			</div>
+			{% include 'front/public_head.html' %}
+			
+			
+		</div>
+		
+		
+		<!--中部--><!--中部--><!--中部--><!--中部--><!--中部--><!--中部--><!--中部-->
+		
+        <div class="reg_ok_mian">
+        	  <div class="reg_ok_top"></div>
+        	  <form action="/front/myaccount"  method="post" class="reg_login">{% csrf_token %}
+        	  	  <p>
+        	  	  	 <label for="">真实姓名</label>
+        	  	  	 <input type="text" name="name" placeholder="请填写真实姓名">
+        	  	  </p>
+                  <p>
+        	  	  	 <label for="">身份证号码</label>
+        	  	  	 <input type="text"  name="card" placeholder="请填写身份证号码">
+                      <input type="hidden"  name="data"  value="{{ user }}">
+        	  	  </p>
+        	  	  <p>
+        
+        	  	  	 <a >提交</a>
+        	  	  	 <span class="span">跳过此步</span>
+        	  	  </p>
+        	  </form>
+        </div>
+		
+        <script>
+            $(function () {
+                var flag = false;
+
+                $('[name=card]').change(function () {
+                    let regex = /^\d{18}$/;
+                    let a = $(this).val();
+                    if(regex.test(a)){
+                        flag = true
+                    }else {
+                         flag=false
+                    }
+                });
+                $("form a").click(function () {
+                    var c = $(this);
+                    var a = $('[name=name]').val();
+                    var b = $('[name=card]').val();
+                    if (a === '') {
+                        if (b===''){
+                            $('form').submit();
+                        }
+                    }else {
+                        if(flag === true){
+                            $('form').submit();
+                        }
+                    }
+                })
+            })
+        </script>
+		
+		
+		
+		<!--底部--><!--底部--><!--底部--><!--底部--><!--底部--><!--底部-->
+		
+		
+		{% include 'front/public_tail.html' %}
+	</body>
+</html>

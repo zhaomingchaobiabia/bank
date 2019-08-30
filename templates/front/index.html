@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/static/front/css/index.css"/>
+         <script src="/static/front/js/jquery1.10.2.js"></script>
+		<script type="text/javascript" src="/static/front/js/index.js"></script>
+
+	</head>
+	<body>
+		<!--头部-->
+    <div class="top">
+    {% if request.session.loginFlag %}
+
+        <div class="top11">
+                <div class="top_11">
+						<ul class="zhzx">
+							<li>欢迎您</li>
+							<li class="li1">{{ tel }} 账户中心</li>
+							<li class="back"><a href="/front/exit">退出</a></li>
+						</ul>
+				</div>
+        </div>
+    {% else %}
+
+			<div class="top1">
+				<div class="top_1">
+					 <a href="/front/login">登陆</a>|<a href="/front/reg">注册</a>
+				</div>
+			</div>
+
+    {% endif %}
+
+
+		{% include 'front/public_head.html' %}
+    </div>
+		
+		<!--middle-->	<!--middle-->	<!--middle-->	<!--middle-->	<!--middle-->
+		
+		
+		<div class="middle">
+			
+			
+			<div class="middle_1" >
+				<div class="middle_1_1">
+					<p>当前位置：首页</p>
+				</div>
+				<ul class="middle_1_2" id="middle_1_2">
+					<li>项目列表</li>
+				</ul>
+			</div>
+			<div id="middle_2">
+				<div class="middle_2">
+	
+					<ul class="middle_2_2">
+						<li class="spanaa">项目状态</li>
+						<li class="spanbb" ><span id="0">不限</span></li>
+						<li><span id="1">投资中</span></li>
+						<li><span id="2">收益中</span></li>
+						<li><span id="3">已完成</span></li>
+					</ul>
+
+
+
+					<ul class="middle_2_3">
+						<li class="spanaa">利率范围</li>
+						<li class="spanbb"><span id="0">不限</span></li>
+						<li><span id="1">12%以下</span></li>
+						<li><span id="2">12%~18%</span></li>
+						<li><span id="3">18%以上</span></li>
+					</ul>
+					<ul class="middle_2_4">
+						<li class="spanaa">借款期限</li>
+						<li class="spanbb"><span id="0">不限</span></li>
+						<li><span id="1">1~3个月</span></li>
+						<li><span id="2">3~6个月</span></li>
+						<li><span id="3">6~12个月</span></li>
+					</ul>
+					<ul class="middle_2_5">
+						<li class="spanaa">还款方式</li>
+						<li class="spanbb"><span id="0">不限</span></li>
+						<li><span id="1">先息后本</span></li>
+						<li><span id="2">到期还本付息</span></li>
+					</ul>
+				</div>
+			</div>
+
+            <div class="middle_show">
+            {% for user in data %}
+                {% if user.status == '筹资中' %}
+                    <div class="middle_3">
+                        <div class="middle_3_1 title">
+                            <span class="middle_3_1_span">{{ user.project_name }}</span>
+                            <img src="/static/front/img/hot.jpg"/>
+                        </div>
+                        <ul class="middle_3_2">
+                            <li>
+                                <p>预期年化利率</p>
+                                <span class="middle_3_2_span">{{ user.rate }}%</span>
+
+                            </li>
+                            <li>
+                                <p>投资期限</p>
+                                <span>{{ user.loan }}个月</span>
+                            </li>
+                            <li>
+                                <p>还款方式</p>
+                                <span>{{ user.repay_type }}</span>
+                            </li>
+                            <li>
+                                <p>项目总额</p>
+                                <span>{{ user.money }}元</span>
+                            </li>
+
+                        </ul>
+
+                        <div class="box">
+                            {{ user.rate }}%
+                        </div>
+
+                        <div class="middle_3_3">
+                            <a href="/property/touzhi?id={{ user.id }}">我要投资</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="middle_3">
+				<div class="middle_3_1 title">
+					<span class="middle_3_1_span">{{ user.project_name }}</span>
+					<img src="/static/front/img/hot.jpg"/>
+				</div>
+				<ul class="middle_3_2">
+					<li>
+						<p>预期年化利率</p>
+						<span class="middle_3_2_span">{{ user.rate }}%</span>
+
+					</li>
+					<li>
+						<p>投资期限</p>
+						<span>{{ user.loan }}个月</span>
+					</li>
+					<li>
+						<p>还款方式</p>
+						<span>{{ user.repay_type }}</span>
+					</li>
+					<li>
+						<p>项目总额</p>
+						<span>{{ user.money }}元</span>
+					</li>
+
+				</ul>
+
+				<div class="box">
+                    {{ user.rate }}%
+				</div>
+
+				<div class="middle_3_3_1">
+					已结束
+				</div>
+                </div>
+                {% endif %}
+
+			{% endfor %}
+            </div>
+
+			<ul class="middle_bottom" id="middle_bottom">
+                {% if data.has_previous %}
+				<a href="?page={{ data.previous_page_number }}"><li><</li></a>
+                {% else %}
+                <a href=""><li><</li></a>
+                {% endif %}
+				<div>
+					<a href="?page=1"><li class="active">1</li></a>
+					<a href="?page=2"><li>2</li></a>
+					<a href="?page=3"><li>3</li></a>
+					<a href="?page=4"><li>4</li></a>
+                    <a href="?page=5"><li>5</li></a>
+					<a href="?page=6"><li>6</li></a>
+					<a href="?page=7"><li>7</li></a>
+					<a href="?page=8"><li>8</li></a>
+				</div>
+				{% if data.has_next %}
+                    <a href="?page={{ data.next_page_number}}"><li>></li></a>
+                {% else %}
+				    <a href=""><li>></li></a>
+				{% endif %}
+
+			</ul>
+
+		</div>
+
+
+		
+		
+		<!--底部--><!--底部--><!--底部--><!--底部--><!--底部--><!--底部--><!--底部-->
+		
+
+		
+		
+		{% include 'front/public_tail.html' %}
+		
+		
+		
+		
+	</body>
+
+</html>

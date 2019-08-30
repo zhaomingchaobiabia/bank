@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>浩茗金融</title>
+        {% load static %}
+        {% load account_management_extra %}
+		<link rel="stylesheet" href="/static/front/css/tzgl.css" />
+		<script type="text/javascript" src="{% static 'front/js/jquery1.10.2.js' %}"></script>
+		<script type="text/javascript" src="{% static 'front/js/tzgl.js' %}"></script>
+		<link rel="stylesheet" src="{% static 'front/css/myAccount.css' %}" />
+		<script type="text/javascript" src="{% static 'front/js/myAccount.js' %}"></script>
+	</head>
+    <style>
+        [type=file]{
+            position: absolute;
+            left: 70px;
+            width: 100px;
+            height: 100px;
+            top: 20px;
+            opacity: 0;
+        }
+    </style>
+	<body>
+		
+		
+		
+		
+		<div class="top">
+			<div class="top1">
+				<div class="top_1">
+                      
+						<ul class="zhzx">
+							<li>欢迎您</li>
+							<li class="li1">{{ user.tel }} 账户中心</li>
+							<li class="back"><a href="/front/">退出</a></li>
+						</ul>
+				</div>
+			</div>
+			{% include 'front/public_head.html' %}
+			
+			
+		</div>
+		
+		
+		<!--中部--><!--中部--><!--中部--><!--中部--><!--中部--><!--中部--><!--中部-->
+		
+
+		
+		<div class="middle">
+			<div class="middle_content" id="content_right">
+				
+				<div class="content_left">
+					<div class="content_photo">
+                            <div class="photo">
+                                <img src="/static/front/img/未标题-1.png" alt=""/>
+                            </div>
+						<input type="file" id="img" />
+
+					</div>
+					
+					<div class="tel">
+						<p class="p1">{{ user.tel }}</p>
+						<p class="p2">{{ user.tel | get_ext }}</p>
+					</div>
+					
+					<div class="img_list" id="img_list">
+						<div class="img1"></div>
+						<div class="img2"></div>
+						<div class="img3"></div>
+					</div>
+					
+					
+					<ul class="list_mi" id="list_mi">
+						<li><a href={% url "account_management:money_record" %}>我的账户</a></li>
+						<li><a href={% url "account_management:investment_management" %}>投资管理</a></li>
+						<li><a href="wyhk.html">我要还款</a></li>
+						<li><a href={% url "account_management:money_record" %}>资金记录</a></li>
+					
+						<li class="pas"><a href="###">密码设置</a></li>
+						<li class="ss"><a href="###">消息中心</a></li>
+					</ul>
+
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+			<!--右侧-->	<!--右侧-->	<!--右侧-->	<!--右侧-->	<!--右侧-->	
+				
+			 <div class="ddd">
+				 <div class="content_right" >
+						<div class="news">
+							<dl class="content_right_dl">
+								<dt>累计投资(元)</dt>
+								<dd>{{ money }}</dd>
+							</dl>
+							<!--
+							<dl class="content_right_dl">
+								<dt>投资中冻结金额(元)</dt>
+								<dd>0.00</dd>	
+							</dl>-->
+							<dl class="content_right_dl2">
+								<dt>投标中(bi)</dt>
+								<dd>{{ count }}</dd>
+							</dl>
+							<dl class="content_right_dl2">
+								<dt>还款中(笔)</dt>
+								<dd>{{ back }}</dd>
+							</dl>
+							<!--
+							<dl class="content_right_dl2">
+								<dt>转让中(笔)</dt>
+								<dd>0</dd>	
+							</dl>
+							-->
+						</div>
+
+                        <div class="teble_tab">
+                        	
+                                <ul>
+									<li >投资中</li>
+									<li >还款中</li>
+									<li >已完成</li>
+									<li >转让中</li>
+								</ul>
+
+								<div class="content">
+									 <div class="box0">
+									 	 <table>
+									 	 	 <tr>
+									 	 	 	<th>项目名称</th>
+									 	 	 	<th>应收日期</th>
+									 	 	 	<th>借款者</th>
+									 	 	 	<th>第几期/总期数</th>
+									 	 	 	<th>应收金额</th>
+									 	 	 	<th>应收利息</th>
+									 	 	 	<th>状态</th>
+									 	 	 </tr>
+                                             {% for foo in c_zi %}
+                                             <tr>
+                                             	<td>{{ foo.p_name }}</td>
+                                             	<td>{{ foo.pay_time }}</td>
+                                             	<td>{{ foo.j_name }}</td>
+                                             	<td>1/1</td>
+                                             	<td>{{ foo.y_money }}</td>
+                                             	<td>{{ foo.l_money }}</td>
+                                             	<td>{{ foo.zt }}</td>
+                                             </tr>
+                                             {% endfor %}
+
+									 	 </table>
+
+                                      
+
+									 </div>
+
+									  <div class="box1"></div>
+                                      <div class="box2"></div>
+                                      <div class="box3"></div>
+								</div>
+
+
+                        </div>
+
+                         <div class="table_page">
+                                     	 
+                         	 <span>&lt;</span>
+                         	 <span>1</span>
+                         	 <span>&gt;</span>
+                         	
+                         </div>
+
+	
+								
+					</div>
+
+			</div>
+
+		     <div style="width:100%;clear:both"></div>
+				
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		<!--底部--><!--底部--><!--底部--><!--底部--><!--底部--><!--底部-->
+
+		
+		{% include 'front/public_tail.html' %}
+	</body>
+    <script>
+        $(function () {
+            $(".teble_tab").children("ul").find("li").eq(0).click(function () {
+                var tag = $(this);
+                $.ajax({
+                    url:'/account_management/tou_zi/',
+                    dataType:'json',
+                    success:function (data) {
+                        $(".teble_tab").find("table").find("tr").eq(0).nextAll().remove();
+                        if (data) {
+                            for (var i = 0; i < data.c_zi.length; i++) {
+                                var p_name = data.c_zi[i].p_name;
+                                var pay_time = data.c_zi[i].pay_time;
+                                var j_name = data.c_zi[i].j_name;
+                                var y_money = data.c_zi[i].y_money;
+                                var l_money = data.c_zi[i].l_money;
+                                var zt = data.c_zi[i].zt;
+                                var t = '<tr><td>' + p_name + '</td><td>' + pay_time + '</td><td>' + j_name + '<td>1/1</td><td>' +
+                                    y_money + '</td><td>' + l_money + '</td><td>' + zt + '</td></tr>';
+
+                                $(".teble_tab").find("table").find("tr").eq(0).after(t)
+                            }
+                        }
+                    }
+                })
+            });
+            $(".teble_tab").children("ul").find("li").eq(1).click(function () {
+                var tag = $(this);
+                $.ajax({
+                    url:'/account_management/huan_kuan/',
+                    dataType:'json',
+                    success:function (data) {
+                        $(".teble_tab").find("table").find("tr").eq(0).nextAll().remove();
+
+                        if (data) {
+                            for (var i = 0; i < data.w_cheng.length; i++) {
+                                var p_name = data.w_cheng[i].p_name;
+                                var pay_time = data.w_cheng[i].pay_time;
+                                var j_name = data.w_cheng[i].j_name;
+                                var y_money = data.w_cheng[i].y_money;
+                                var l_money = data.w_cheng[i].l_money;
+                                var zt = data.w_cheng[i].zt;
+                                var t = '<tr><td>' + p_name + '</td><td>' + pay_time + '</td><td>' + j_name + '<td>1/1</td><td>' +
+                                    y_money + '</td><td>' + l_money + '</td><td>' + zt + '</td></tr>';
+
+                                $(".teble_tab").find("table").find("tr").eq(0).after(t)
+                            }
+                        }
+                    }
+                })
+            });
+            $(".teble_tab").children("ul").find("li").eq(2).click(function () {
+                var tag = $(this);
+                $.ajax({
+                    url:'/account_management/wan_cheng/',
+                    dataType:'json',
+                    success:function (data) {
+                        $(".teble_tab").find("table").find("tr").eq(0).nextAll().remove();
+
+                        if (data) {
+                            for (var i = 0; i < data.x_hui.length; i++) {
+                                var p_name = data.x_hui[i].p_name;
+                                var pay_time = data.x_hui[i].pay_time;
+                                var j_name = data.x_hui[i].j_name;
+                                var y_money = data.x_hui[i].y_money;
+                                var l_money = data.x_hui[i].l_money;
+                                var zt = data.x_hui[i].zt;
+                                var t = '<tr><td>' + p_name + '</td><td>' + pay_time + '</td><td>' + j_name + '<td>1/1</td><td>' +
+                                    y_money + '</td><td>' + l_money + '</td><td>' + zt + '</td></tr>';
+
+                                $(".teble_tab").find("table").find("tr").eq(0).after(t)
+                            }
+                        }
+                    }
+                })
+            });
+            $(".teble_tab").children("ul").find("li").eq(3).click(function () {
+                var tag = $(this);
+                $.ajax({
+                    url:'/account_management/zhuan_rang/',
+                    dataType:'json',
+                    success:function (data) {
+                        $(".teble_tab").find("table").find("tr").eq(0).nextAll().remove();
+                        if (data) {
+                            for (var i = 0; i < data.l_biao.length; i++) {
+                                var p_name = data.l_biao[i].p_name;
+                                var pay_time = data.l_biao[i].pay_time;
+                                var j_name = data.l_biao[i].j_name;
+                                var y_money = data.l_biao[i].y_money;
+                                var l_money = data.l_biao[i].l_money;
+                                var zt = data.l_biao[i].zt;
+                                var t = '<tr><td>'+p_name+'</td><td>'+pay_time+'</td><td>'+j_name+'<td>1/1</td><td>'+
+                                    y_money+'</td><td>'+l_money+'</td><td>'+zt+'</td></tr>';
+
+                                $(".teble_tab").find("table").find("tr").eq(0).after(t)
+                            }
+                        }
+                    }
+                })
+            });
+
+        })
+    </script>
+</html>

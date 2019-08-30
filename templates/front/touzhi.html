@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/static/front/css/touzhi.css"/>
+		<script type="text/javascript" src="/static/front/js/jquery1.10.2.js"></script>
+		<script type="text/javascript" src="/static/front/js/touzhi.js"></script>
+		<link rel="stylesheet" href="/static/front/css/myAccount.css" />
+		<script type="text/javascript" src="/static/front/js/myAccount.js"></script>
+        {% load account_management_extra %}
+	</head>
+	<body>
+		<!--头部-->
+		<div class="top">
+			<div class="top1">
+				{% include 'front/public_top_1.html' %}
+			</div>
+			{% include 'front/public_head.html' %}
+
+		</div>
+				
+		<!--中部-->
+		<div class="middle">			
+			
+			<div class="middle_1">
+				<div class="middle_1_1">
+					<p>当前位置：首页>我要理财>{{ item.name }}</p>
+				</div>
+				<div class="middle_1_2">
+					<span class="title">{{ item.name }}</span>
+					<span class="more" id="more">更多项目></span>
+				</div>
+			</div>
+			
+			
+			<div class="middle_2">
+				<div class="middle_2_left">
+					
+					<div class="middle_2_left_1">
+											
+						<div class="middle_2_left_1_1">				
+							
+							<div class="middle_2_left_1_1_1">
+								<p>预期年化收益率 </p>
+								<span class="span1">{{ item.rate }}.00</span>
+								<span class="span2">%</span>
+							</div>				
+							
+							<div class="middle_2_left_1_1_2">
+								<p class="p1">投资期限：<span>{{ item.loan }}个月</span></p>
+								<p class="p2">项目总额：<span>{{ item.money }}.00元</span></p>
+								<p class="p3">还款方式：<span>{{ item.repay_type }}</span></p>
+							</div>
+												
+							
+							<div class="middle_2_left_1_1_3">
+								<p class="p4">剩余金额：<span>{{ item.balance }}.00元</span></p>
+								<p class="p5">发布日期：<span>{{ item.time }}</span></p>
+							</div>						
+						
+						</div>
+						
+					</div>
+									
+					<div class="ww141">
+						<div class="ww141_1"></div>
+						
+							<span>进度：{{ item.plan }}0%</span>
+							<p class="s12" id="timed">
+								可投时间：<span>6</span>天<span>23</span>时<span>53</span>分<span>16</span>秒
+							</p>
+					</div>				
+					
+				</div>
+				
+				<div class="middle_2_right">
+					<div class="middle_2_right_1">
+						<p class="p1p">账户余额<span>{{ balance }}</span>元</p>
+						<p class="p2p" id="cz">充值</p>
+					</div>
+                    <form></form>
+					<p><input type="text" placeholder="50.00元起投" /><span class="yuan">元</span></p>
+					<p><input type="password" placeholder="请输入支付密码"/></p>
+					<div class="mstz">
+						马上投资
+					</div>
+
+				</div>
+
+			</div>
+		
+			<div class="tz_tab">
+				<ul>
+					<li class="active">项目简介</li>
+					<li>项目详情</li>
+					<li>相关资料披露</li>
+					<li>加入记录</li>
+				</ul>
+				<div class="tz_tab_content">
+					<div class="jianjie">{{ item.info }}</div>
+					<div class="xiangqing">
+                       <p>
+                           <span class="title">计划名称</span>
+                           <span class="main">{{ item.name }}</span>
+                        </p>
+                        <p>
+                           <span class="title">可加入日期</span>
+                           <span class="main">{{ item.time }}至{{ item.t1 }}</span>
+                        </p>
+                        <p>
+                           <span class="title">锁定期</span>
+                           <span class="main">{{ item.loan }}个月</span>
+                        </p>
+                        <p>
+                           <span class="title">预计年化收益率</span>
+                           <span class="main">{{ item.rate }}.00%</span>
+                        </p>
+                        <p>
+                           <span class="title">加入条件</span>
+                           <span class="main">50.00元起</span>
+                        </p>
+                        <p>
+                           <span class="title">还款方式</span>
+                           <span class="main">{{ item.repay_type }}</span>
+                        </p>
+                        <p>
+                           <span class="title">起息日</span>
+                           <span class="main">起息日为该理财计划锁定期开始日当天</span>
+                        </p>
+                        <p>
+                           <span class="title">保障方式</span>
+                           <span class="main">风险准备金逾期垫付，100%本息保障，阳光保险资金安全保障</span>
+                        </p>
+                        <p>
+                           <span class="title">到期时间</span>
+                           <span class="main">{{ item.t1 }}</span>
+                        </p>
+                        <p>
+                           <span class="title">费用说明</span>
+                           <span class="main">加入费率：0.00%；退出费用：0.00%</span>
+                        </p>
+
+					</div>
+					<div class="pilu">披露</div>
+					<div class="jilu">
+
+                         <table>
+                            <thead>
+                            	<tr>
+	                         	 	<th>投资人</th>
+	                         	 	<th>投资金额</th>
+	                         	 	<th>投标时间</th>
+	                         	 	<th>投标方式</th>
+	                         	 </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in pro %}
+                                    <tr>
+                                        <td>{{p.user.realname}}</td>
+                                        <td>{{ p.money }}.00</td>
+                                        <td>{{ p.invest_time| date_format}}</td>
+                                        <td>风投</td>
+                                    </tr>
+                                {% endfor %}
+
+                            </tbody>
+                         	 
+                         </table>
+                         <p>暂无数据</p>
+
+					</div>
+				</div>
+			</div>
+
+	
+
+				
+		</div>
+		
+		<!--=====================底部============================-->
+		{% include 'front/public_tail.html' %}
+		
+		
+		 <!--  投资确认框 -->
+		
+		  <div class="dialog">
+
+                   <div class="content_left">
+                   	   <ul>
+                   	   	<li>项目名称：<span>{{ item.name }}</span></li>
+                   	   	<li>项目总额：<span class="all_price">￥{{ item.money }}.00</span></li>
+                   	   	<li>起投总额：<span>￥50.00</span></li>
+                   	   	<li>预期年化收益率：<span>{{ item.rate }}.00%</span></li>
+                   	   	<li>投资期限：<span>{{ item.loan }}个月</span></li>
+                   	   	<li>还款方式：<span>{{ item.repay_type }}</span></li>
+                   	   	<li>计息方式：<span>满标计算</span></li>
+                   	   </ul>
+                   </div>	
+                   <div class="content_right">
+
+                       <div class="close"></div>
+                        <form action="/property/bid/{{ p_id }}" method="post">{% csrf_token %}
+                           <p class="congzhi">您的可用金额：<span>{{ balance }}</span>元<a href="/account_management/money_record/">[我要充值]</a></p>
+                           <p><label for="">投标金额：</label><input type="text" name="tbm" id="tbm"><span class="danwei">元</span></p>
+                           <p><label for="">投标密码：</label><input name="tbpassword" type="password"><em id="tishi" style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ msg }}</em></p>
+                           <p><label for="">支付密码：</label><input name="zfpassword" type="password"><a href="###" class="zfpw">忘记支付密码？</a></p>
+                           <p><label for="">验证码：</label><input type="text"><span class="yzm">验证码图片</span></p>
+                           <p class="tb_ok"><a id="toubiao">确认投标</a></p>
+                           <p style="margin:10px 0 0 0">注意：点击按钮表示您将确认投标金额并同意支付</p>
+                        </form>
+                   </div>
+          </div>
+		
+		
+		
+	</body>
+</html>
